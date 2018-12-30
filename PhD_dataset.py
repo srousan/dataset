@@ -48,6 +48,7 @@ print(browser.current_url)
 response = requests.get(browser.current_url)
 page = BeautifulSoup(response.text, 'html.parser')
 
+
 listing_summary = browser.find_elements_by_class_name("cg-listingDetail-specsWrap")
 print(listing_summary[0].text)
 
