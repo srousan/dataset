@@ -1,13 +1,10 @@
 class save_data:
 
-    data_obj = {
-        make: ""
-        img: []
-    }
+    data_obj = {}
 
     def __init__(self, data_obj):
-        self.data_obj.= data_obj
+        self.data_obj = data_obj
 
 
-    def save():
+    def save(self):
         print("save data here")
