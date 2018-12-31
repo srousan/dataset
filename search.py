@@ -62,8 +62,13 @@ class Search:
                     close_button.click()
                 else:
                     item["imgUrls"].append(img_url)
-                    next_button = browser.find_element_by_xpath('//*[@class="fancybox-nav fancybox-next"]')
-                    next_button.click()
+                    try:
+                        next_button = browser.find_element_by_xpath('//*[@class="fancybox-nav fancybox-next"]')
+                        next_button.click()
+                    except NoSuchElementException:
+                        flag = False
+                        close_button = browser.find_element_by_xpath('//*[@class="fancybox-item fancybox-close"]')
+                        close_button.click()
 
             s = save_data(item)
             s.save()
