@@ -1,10 +1,5 @@
 import requests
-import soup as soup
-from bs4 import BeautifulSoup
-import re
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
+from save_data import save_data
 
 
 class Search:
@@ -19,4 +14,16 @@ class Search:
         self.zip_code = zip_code
 
     def search_items(self):
-        print(self.make + " " + self.model + " " + self.zip_code)
+        url = "https://www.cargurus.com/Cars/inventorylisting/ajaxFetchSubsetInventoryListing.action?sourceContext=carGurusHomePageModel"
+        params = {
+            zip: self.zip_code
+        }
+        result = requests.post(url=url, params=params).json()
+
+        listings = result["listings"]
+
+        for item in listings:
+            url = "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=" + self.model + "&zip="+self.zip_code+"#listing=" + str(item["id"])
+            result = requests.post(url=url)
+            print(str(result))
+            break
