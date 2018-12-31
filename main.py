@@ -16,7 +16,7 @@ for make in make_list:
             s = Search(make_list[make], model["modelId"], zip_code)
             s.search_items()
             #this breaks needed to prevent program to loop over all inputs
-            break
-        break
-    break
+            #break
+        #break
+    #break
 
