@@ -7,8 +7,9 @@ import re
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from save_data import save_data
 
-browser = webdriver.Chrome()
+browser = webdriver.Chrome(executable_path='/Users/Suhaib/Downloads/9781789133806_Python_Automation_Code/Chapter03/chromedriver')
 root_url='https://www.cargurus.com/'
 
 
@@ -51,12 +52,17 @@ page = BeautifulSoup(response.text, 'html.parser')
 listing_summary = browser.find_elements_by_class_name("cg-listingDetail-specsWrap")
 print(listing_summary[0].text)
 
+img_urls=['https://static.cargurus.com/images/forsale/2018/11/05/20/54/2015_toyota_camry-pic-2578532806027757717-1024x768.jpeg','https://static.cargurus.com/images/forsale/2018/11/05/20/54/2015_toyota_camry-pic-2578532806027757717-1024x768.jpeg']
+s=save_data("")
+
 print('***********************')
 description = browser.find_elements_by_class_name("cg-listingDetail-moreDetails")
 print(description[0].text)
 
 print('***********************')
-
+s.text_to_dic(listing_summary[0].text,description[0].text,img_urls)
+s.text_to_dic(listing_summary[0].text,description[0].text,img_urls)
+s.save_to_jason()
 
 
 
