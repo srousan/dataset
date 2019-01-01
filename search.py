@@ -26,8 +26,8 @@ class Search:
         result = requests.post(url=url, params=params).json()
 
         listings = result["listings"]
-        # browser = webdriver.Chrome()
-        browser = webdriver.Chrome(executable_path='/Users/Suhaib/Downloads/9781789133806_Python_Automation_Code/Chapter03/chromedriver')
+        browser = webdriver.Chrome()
+        #browser = webdriver.Chrome(executable_path='/Users/Suhaib/Downloads/9781789133806_Python_Automation_Code/Chapter03/chromedriver')
 
         for item in listings:
 
@@ -40,7 +40,10 @@ class Search:
             browser.execute_script(open("delete_svg.js").read())
             sleep(2)
 
-            item["dealerDescription"] = browser.find_element_by_id("#description").text
+            try:
+                item["dealerDescription"] = browser.find_element_by_id("#description").text
+            except NoSuchElementException:
+                item["dealerDescription"] = ""
 
             slider = browser.find_element_by_class_name("detailsClickable")
             slider.click()
