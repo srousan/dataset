@@ -57,7 +57,7 @@ description = browser.find_elements_by_class_name("cg-listingDetail-moreDetails"
 print(description[0].text)
 
 print('***********************')
-
+print('dd')
 
 imgs = browser.find_elements_by_class_name("cg-listingStub-bodySection")
 for img in imgs:
