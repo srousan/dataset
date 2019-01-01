@@ -50,12 +50,10 @@ class Search:
                 sleep(1)
                 try:
                     image_container = browser.find_element_by_class_name("fancybox-image")
+                    img_url = image_container.get_attribute("src")
                 except NoSuchElementException:
-                    next_button = browser.find_element_by_xpath('//*[@class="fancybox-nav fancybox-next"]')
-                    next_button.click()
-                    continue
-
-                img_url = image_container.get_attribute("src")
+                    image_container = browser.find_element_by_xpath('//*[local-name()="image"]')
+                    img_url = image_container.get_attribute("xlink:href")
 
                 if img_url in item["imgUrls"]:
                     flag = False
