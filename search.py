@@ -44,7 +44,7 @@ class Search:
 
             slider = browser.find_element_by_class_name("detailsClickable")
             slider.click()
-            flag = True
+            flag = True 
 
             while flag:
                 sleep(1)
