@@ -17,6 +17,9 @@ class Search:
         self.model = model
         self.zip_code = zip_code
 
+    def hr(self):
+        print("--------------------------------------")
+
     def search_items(self):
         url = "https://www.cargurus.com/Cars/inventorylisting/ajaxFetchSubsetInventoryListing.action?sourceContext=carGurusHomePageModel"
         params = {}
@@ -29,8 +32,10 @@ class Search:
         browser = webdriver.Chrome()
         #browser = webdriver.Chrome(executable_path='/Users/Suhaib/Downloads/9781789133806_Python_Automation_Code/Chapter03/chromedriver')
 
-        for item in listings:
-
+        for index, item in enumerate(listings):
+            self.hr()
+            print("Current group progress: " + str(index) + "/" + str(len(listings)))
+            self.hr()
             if item["noPhotos"]:
                 continue
 
