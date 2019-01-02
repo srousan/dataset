@@ -36,7 +36,7 @@ class save_data:
         self.data['cars']=self.data_obj
         with open(directory+'/one_car.json', 'w') as outfile:
             json.dump(self.data, outfile)
-
+        print('file saved on {0} folder',str(id))
     def image_to_base64(self,img_url):
         img_bs4 = base64.b64encode(requests.get(img_url).content)
         return img_bs4
