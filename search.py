@@ -30,7 +30,7 @@ class Search:
 
         listings = result["listings"]
         browser = webdriver.Chrome()
-        #browser = webdriver.Chrome(executable_path='/Users/Suhaib/Downloads/9781789133806_Python_Automation_Code/Chapter03/chromedriver')
+        # browser = webdriver.Chrome(executable_path='/Users/Suhaib/Downloads/9781789133806_Python_Automation_Code/Chapter03/chromedriver')
 
         for index, item in enumerate(listings):
             self.hr()
