@@ -3,6 +3,7 @@ from save_data import save_data
 from selenium import webdriver
 from time import sleep 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import WebDriverException
 
 class Search:
 
@@ -51,8 +52,14 @@ class Search:
                 item["dealerDescription"] = ""
 
             slider = browser.find_element_by_class_name("detailsClickable")
-            slider.click()
+
+            try:
+                slider.click()
+            except WebDriverException:
+                continue
+
             flag = True 
+            add_item = True
 
             while flag:
                 sleep(1)
@@ -60,8 +67,12 @@ class Search:
                     image_container = browser.find_element_by_class_name("fancybox-image")
                     img_url = image_container.get_attribute("src")
                 except NoSuchElementException:
-                    image_container = browser.find_element_by_xpath('//*[local-name()="image"]')
-                    img_url = image_container.get_attribute("xlink:href")
+                    try: 
+                        image_container = browser.find_element_by_xpath('//*[local-name()="image"]')
+                        img_url = image_container.get_attribute("xlink:href")
+                    except NoSuchElementException:
+                        add_item = False
+                        break
 
                 if img_url in item["imgUrls"]:
                     flag = False
@@ -77,8 +88,9 @@ class Search:
                         close_button = browser.find_element_by_xpath('//*[@class="fancybox-item fancybox-close"]')
                         close_button.click()
 
-            s = save_data(item)
-            s.save()
+            if add_item:
+                s = save_data(item)
+                s.save()
 
         browser.quit()
 
