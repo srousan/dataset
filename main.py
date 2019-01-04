@@ -1,5 +1,6 @@
 import json
 from input_list import InputList
+import os
 
 def hr():
         print("--------------------------------------")
@@ -12,6 +13,12 @@ with open("data/model.json", "r") as obj:
 
 with open("data/zip_code.json", "r") as obj:
         zip_code_list = json.load(obj)
+
+if os.path.exists("log.txt"):
+        os.remove("log.txt")
+        open("log.txt", "x")
+else:
+        open("log.txt", "x")
 
 hr()    
 print("commands:")
