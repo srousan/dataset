@@ -35,7 +35,7 @@ class Search:
             params = {}
             params["zip"] = self.zip_code
             params["selectedEntity"] = self.model
-        
+       
             result = requests.post(url=url, params=params).json()
 
             listings = result["listings"]
