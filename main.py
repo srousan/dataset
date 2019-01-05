@@ -211,5 +211,5 @@ print(model_list_param)
 hr()
 input("Enter to start ... ")
 
-input_ist = InputList(make_list_param,model_list,zip_code_list_param)
+input_ist = InputList(make_list_param,model_list_param,zip_code_list_param)
 input_ist.run_item()
