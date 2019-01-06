@@ -32,20 +32,33 @@ class save_data:
         if not os.path.exists(img_directory):
             os.makedirs(img_directory) 
        
+        img_urls = self.data_obj.get("imgUrls")
+        imgs_paths=[]
+        img_counter=1
+        for img in img_urls:
+           imgs_paths.append(directory+ '/imgs'+'/img_'+str(img_counter)+'.png')
+           img_counter = img_counter +1
+        
+        # relative_paths = {'imgs_paths': imgs_paths}
+        # self.data_obj.update(relative_paths)
+
         self.extract_urls_to_files(img_directory) 
+        self.data_obj['imgUrls'] = imgs_paths
         self.data['cars']=self.data_obj
         with open(directory+'/one_car.json', 'w') as outfile:
             json.dump(self.data, outfile)
-        print('file saved on {0} folder',str(id))
+        print('file saved on folder',str(id))
     def image_to_base64(self,img_url):
         img_bs4 = base64.b64encode(requests.get(img_url).content)
         return img_bs4
         # return base64.encodebytes(img_bs4).decode('ascii')
 
     def base64_to_image(self,img_base64,full_path):
-        with open(full_path, "wb") as fh:
-            fh.write(base64.decodebytes(img_base64))
-            # fh.write(base64.decodebytes(img_base64))
+        if not os.path.exists(full_path):
+            with open(full_path, "wb") as fh:
+                fh.write(base64.decodebytes(img_base64))
+                # fh.write(base64.decodebytes(img_base64))
+        
 
     def text_to_dic(self,text,discription,img_urls):
         dic_car={}
