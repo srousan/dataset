@@ -13,12 +13,14 @@ class Search:
     make = ""
     model = ""
     zip_code = ""
+    log_file = ""
 
-    def __init__(self, make, model, zip_code):
+    def __init__(self, make, model, zip_code, log_file):
         self.make = make
         self.model = model
         self.zip_code = zip_code
         self.itemId = -1
+        self.log_file = log_file
         self.log = ""
 
     def hr(self):
@@ -26,7 +28,7 @@ class Search:
 
     def search_items(self):
 
-        self.log = open("log.txt", "a")
+        self.log = open(self.log_file, "a")
 
         try:
 

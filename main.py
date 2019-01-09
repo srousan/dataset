@@ -1,6 +1,7 @@
 import json
 from input_list import InputList
 import os
+import time
 
 
 def hr():
@@ -11,7 +12,8 @@ def get_model(model_list, make):
     hr()
     flag = True
     while flag:
-        models = input("Enter model/s for " + make_list[make] + " / " + make + " :")
+        models = input("Enter model/s for " +
+                       make_list[make] + " / " + make + " :")
         if models.lower() == "all":
             flag = False
             return model_list
@@ -49,8 +51,8 @@ def get_model(model_list, make):
 
     model_list_param = []
     for item in range:
-            model_list_param.append(model_list[item])
-    
+        model_list_param.append(model_list[item])
+
     return model_list_param
 
 
@@ -63,11 +65,8 @@ with open("data/model.json", "r") as obj:
 with open("data/zip_code.json", "r") as obj:
     zip_code_list = json.load(obj)
 
-if os.path.exists("log.txt"):
-    os.remove("log.txt")
-    open("log.txt", "x")
-else:
-    open("log.txt", "x")
+log_file = "log" + str(time.time()) + ".txt"
+open(log_file, "x")
 
 hr()
 print("commands:")
@@ -211,5 +210,5 @@ print(model_list_param)
 hr()
 input("Enter to start ... ")
 
-input_ist = InputList(make_list_param,model_list_param,zip_code_list_param)
+input_ist = InputList(make_list_param, model_list_param,zip_code_list_param, log_file)
 input_ist.run_item()
