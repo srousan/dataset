@@ -49,7 +49,7 @@ class Search:
                       str(index + 1) + "/" + str(len(listings)))
                 self.hr()
 
-                if item["noPhotos"] or os.path.exists("/data_files_imgs/" + str(item["id"])):
+                if item["noPhotos"] or os.path.exists("./data_files_imgs/" + str(item["id"])):
                     print("Item ", str(item["id"]),
                           " with no images or already installed")
                     continue
