@@ -6,6 +6,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import WebDriverException
 import os
 import datetime
+import json
 
 
 class Search:
@@ -30,6 +31,9 @@ class Search:
 
         self.log = open(self.log_file, "a")
 
+        with open("config.json", "r") as obj:
+            config = json.load(obj)
+
         try:
 
             url = "https://www.cargurus.com/Cars/inventorylisting/ajaxFetchSubsetInventoryListing.action?sourceContext=carGurusHomePageModel"
@@ -41,7 +45,6 @@ class Search:
 
             listings = result["listings"]
             browser = webdriver.Chrome()
-            # browser = webdriver.Chrome(executable_path='/Users/Suhaib/Downloads/9781789133806_Python_Automation_Code/Chapter03/chromedriver')
 
             for index, item in enumerate(listings):
                 self.hr()
@@ -49,7 +52,7 @@ class Search:
                       str(index + 1) + "/" + str(len(listings)))
                 self.hr()
 
-                if item["noPhotos"] or os.path.exists("./data_files_imgs/" + str(item["id"])):
+                if item["noPhotos"] or os.path.exists("./data_files_imgs/" + str(item["id"])) or os.path.exists(config["google_drive_path"] + str(item["id"])):
                     print("Item ", str(item["id"]),
                           " with no images or already installed")
                     continue
@@ -58,7 +61,9 @@ class Search:
                 self.itemId = item["id"]
                 browser.get("https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=" +
                             self.model + "&zip="+self.zip_code+"#listing=" + str(item["id"]))
+                browser.minimize_window() 
                 browser.maximize_window()
+                
                 browser.execute_script(open("delete_svg.js").read())
                 sleep(2)
 
